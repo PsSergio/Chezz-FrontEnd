@@ -1,6 +1,6 @@
-export default function SingButton({text}){
+export default function SingButton({text, bkgColor, borderColor}){
 
-    return <button className="sing-btn default-color w-full">
+    return <button className="sing-btn w-full" style={{backgroundColor:bkgColor, boxShadow:"0px 5px "+borderColor}}>
         {text}
     </button>
 
