@@ -12,7 +12,7 @@ export default function HomePage(){
                 <div className="left-side-home mr-10">
                     <Logo _width={200}/>
 
-                    <UserInfo username={"PsCosta"} rating="1500"/>
+                    <UserInfo username={"PsCost"} rating="1500"/>
 
                     <div className='buttons-container default-color add-shadow'>
 
