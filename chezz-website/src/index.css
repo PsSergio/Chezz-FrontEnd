@@ -6,10 +6,10 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        overflow-y: hidden;
     }
     
     body {
+        overflow-x: hidden;
         background-color: #373737;
     }
     
@@ -20,7 +20,7 @@
         justify-content: center;
     }
     
-    .container-home {
+    .container-home-desktop-response {
         display: flex;
         align-items: center;
         justify-content: space-evenly;
@@ -51,7 +51,7 @@
     }
     
     .add-shadow {
-        box-shadow: 0px 7px;
+        border-bottom: 7px solid #9B3535;
     }
     
     .user-info {
@@ -115,16 +115,56 @@
         background-color: #DADADA;
     }
     
-    @media all and (min-width:640px) {}
-    
-    @media all and (min-width:768px) {
+    @media (max-width:768px) {
+        body {
+            overflow-y: scroll;
+        }
+        .logout {
+            width: 20px;
+            height: 20px;
+        }
+        .user-info {
+            width: 75%;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .buttons-container {
+            width: 100vw;
+        }
+        .user-info-container-cellphone {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        .desktop-mode {
+            display: none;
+        }
         .board {
-            width: 470px;
-            height: 470px;
+            margin-top: 2em;
+            margin-bottom: 2em;
+            width: 100vw;
+            height: 100vw;
         }
         .square {
-            width: 58.75px;
-            height: 58.75px;
+            width: calc(100vw/8);
+            height: calc(100vw/8);
+        }
+        .profile-img {
+            width: 50px;
+            height: 50px;
+        }
+    }
+    
+    @media (min-width:769px) {
+        .phone-mode {
+            display: none;
+        }
+        .board {
+            width: 400px;
+            height: 400px;
+        }
+        .square {
+            width: 50px;
+            height: 50px;
         }
         .play-btn {
             width: 12em;
@@ -144,7 +184,7 @@
         }
     }
     
-    @media all and (min-width:1024px) {
+    @media (min-width:1024px) {
         .board {
             width: 600px;
             height: 600px;
@@ -176,6 +216,6 @@
         }
     }
     
-    @media all and (min-width:1280px) {}
+    @media (min-width:1280px) {}
     
-    @media all and (min-width:1536) {}
+    @media (min-width:1536) {}
