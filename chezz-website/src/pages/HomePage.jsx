@@ -1,13 +1,15 @@
+import Board from '../components/Board';
 import Logo from '../components/Logo';
 import PlayButton from '../components/PlayButton';
 import UserInfo from '../components/UserInfo';
+// import { boardSize } from '../globals';
 
-function HomePage(){
+export default function HomePage(){
     return (
 
         <section className="container-bkg">
-            <div className='container'>
-                <div className="left-side-home">
+            <div className='container-home'>
+                <div className="left-side-home mr-10">
                     <Logo _width={200}/>
 
                     <UserInfo username={"PsCosta"} rating="1500"/>
@@ -19,11 +21,14 @@ function HomePage(){
 
                     </div>
                 </div>
-                <div className="board"></div>
+                <div className='board-container ml-10'>
+                    <div className="board">
+                        <Board/>
+
+                    </div>
+                </div>
             </div>
         </section>
 
     )
 }
-
-export default HomePage;
