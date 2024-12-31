@@ -9,19 +9,19 @@ export default function HomePage(){
 
         <section className="container-bkg">
             <div className='container-home'>
-                <div className="left-side-home mr-10">
+                <div className="left-side-home ">
                     <Logo _width={200}/>
 
-                    <UserInfo username={"PsCost"} rating="1500"/>
+                    <UserInfo username={"PsCosta"} rating="1500"/>
 
-                    <div className='buttons-container default-color add-shadow'>
+                    <div className='buttons-container default-color add-shadow mb-4 mt-6'>
 
                         <PlayButton text={"Jogar online"}/>
                         <PlayButton text={"Jogar com bots"}/>
 
                     </div>
                 </div>
-                <div className='board-container ml-10'>
+                <div className='board-container xl:ml-10 md:ml-5'>
                     <div className="board">
                         <Board/>
 
