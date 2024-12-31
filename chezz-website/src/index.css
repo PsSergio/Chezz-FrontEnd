@@ -231,6 +231,12 @@
     }
     
     @media (min-width:769px) {
+        .container-form p {
+            display: none;
+        }
+        .container-form div p {
+            display: block;
+        }
         .cellphone-singin-btn-container {
             display: none;
         }
