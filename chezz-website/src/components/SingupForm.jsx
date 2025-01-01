@@ -1,7 +1,10 @@
 import { useState } from "react"
 import SingButton from "./SingButton"
+import {useNavigate} from 'react-router-dom'
+// import HomePage from "../pages/HomePage"
 
 export default function SingupForm(){
+    const navigate = useNavigate()
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -36,6 +39,13 @@ export default function SingupForm(){
             }
         ).then(response =>{
             if(response.ok){
+                response.json().then((value) => {
+                    const data = {
+                        'username': value.username, 
+                        'rating': value.rating, 
+                        'sessionId': value.sessionId }
+                    navigate('/home', {state: data})
+                })
                 return
             }
             response.json().then((value) => { 
@@ -46,6 +56,7 @@ export default function SingupForm(){
     }
     
     return (
+        
         <div className="sing-container flex flex-col justify-center items-center">
 
             <div className="container-form default-color add-shadow w-full">
@@ -63,6 +74,9 @@ export default function SingupForm(){
             <div className="cellphone-singin-btn-container w-full mt-5">
                 <SingButton text={"Já tenho uma conta"} bkgColor={"#747474"} borderColor={"#414141"} onclick_func={() => {}}/>
             </div>
+            
         </div>
+            
+        
     )
 }

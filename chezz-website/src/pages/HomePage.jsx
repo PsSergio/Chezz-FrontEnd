@@ -1,15 +1,25 @@
+// import { Router, Routes, Route} from 'react-router-dom';
 import Board from '../components/Board';
 import Logo from '../components/Logo';
 import PlayButton from '../components/PlayButton';
 import UserInfo from '../components/UserInfo';
+import { useLocation } from 'react-router-dom';
+// import { useState } from 'react';
 
+ 
 export default function HomePage(){
-    return (
+    // const [session, setSession] = useState({sessionId}) 
+    const location = useLocation()
 
+    // eslint-disable-next-line no-unused-vars
+    const { username, rating, sessionId} = location.state;
+
+    return (
+        
         <section className="container-bkg">
             <div className="container-home-phone-response phone-mode">
                 <div className="userInfo">
-                    <UserInfo username={"PsCosta"} rating="1500" mode={"Cellphone"}/>
+                    <UserInfo username={username} rating={rating} mode={"Cellphone"}/>
                 </div>
                 <div className='board-container w-screen'>
                     <div className="board">
@@ -26,7 +36,7 @@ export default function HomePage(){
                 <div className="left-side-home ">
                     <Logo _width={200}/>
 
-                    <UserInfo username={"PsCosta"} rating="1500" mode={"Desktop"}/>
+                    <UserInfo username={username} rating={rating} mode={"Desktop"}/>
 
                     <div className='buttons-container default-color add-shadow mb-4 mt-6'>
 

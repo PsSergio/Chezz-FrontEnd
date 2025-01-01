@@ -1,5 +1,3 @@
-import {squareSize} from "../globals.jsx"
-
 export default function Board(){
     
     let squars = []
@@ -15,13 +13,13 @@ export default function Board(){
             
             for(let j = 0; j < 8; j++){
                 if(isRed){
-                    squars.push(<div className="square square-red" width={squareSize} height={squareSize}></div>)
+                    squars.push(<div className="square square-red"></div>)
                     isRed=false
                     continue;
                 }
 
                 isRed=true
-                squars.push(<div className="square square-white" width={squareSize} height={squareSize}></div>)
+                squars.push(<div className="square square-white"></div>)
                 
             }
             
