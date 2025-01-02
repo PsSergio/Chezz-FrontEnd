@@ -140,12 +140,16 @@
         font-size: 1.5em;
     }
     
-    .input-singin-and-singup {
+    .input-container {
         width: 30em;
+        margin-bottom: 2em;
+    }
+    
+    .input-singin-and-singup {
+        width: 100%;
         background-color: transparent;
         border-bottom: 2px solid white;
         color: white !important;
-        margin-bottom: 2em;
         font-weight: 500;
     }
     
@@ -174,19 +178,19 @@
         margin-top: 2em;
     }
     
-    .email-warning-error {
-        display: block !important;
-    }
-    
     .error-msg {
+        position: absolute;
         color: white;
         font-size: .9em;
     }
     
-    .email-msg-container {
+    .loading-container {
+        z-index: 999;
         position: absolute;
-        width: 30em;
-        margin-bottom: 1.7em;
+        background-color: #2F2F2F;
+        opacity: .7;
+        left: 0;
+        top: 0;
     }
     
     @media (max-width:768px) {
@@ -197,7 +201,7 @@
             font-size: 1.2em;
         }
         .sing-container,
-        .input-singin-and-singup {
+        .input-container {
             width: 75vw;
         }
         .container-form {

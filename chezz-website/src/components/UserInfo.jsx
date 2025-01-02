@@ -1,6 +1,26 @@
+import { useState } from 'react'
 import LogoutImage from '../assets/logout.png'
+import { useNavigate } from 'react-router-dom'
 
-function UserInfo({username, rating, mode}){
+function UserInfo({username, rating, mode, sessionId}){
+    const navigate = useNavigate()
+    const [isLoadingVisible, setIsLoadingVisible] = useState(false)
+
+    async function logoutPlayer(){
+        setIsLoadingVisible(true)
+        fetch(`http://10.0.0.181:8080/player/logout/${sessionId}`, {
+            method: 'DELETE',
+            headers: {'Content-Type': "application/json"},
+        }).then(response => {
+
+            if(response.ok) navigate('/singin'); return;
+
+        }
+            
+        )
+    }
+
+
 
     if(mode == "Cellphone"){
 
@@ -14,7 +34,10 @@ function UserInfo({username, rating, mode}){
                         <p className="rating">({rating})</p>
                     </div>
 
-                    <img src={LogoutImage} alt="" className="logout" width={20}/>
+                    <img src={LogoutImage} alt="" className="logout" width={20} onClick={() => {
+                        logoutPlayer()
+                        setIsLoadingVisible(false)
+                    }}/>
                 </div>
             </div>
         )
@@ -22,7 +45,8 @@ function UserInfo({username, rating, mode}){
     }
 
     return (
-
+        <div>
+        
         <div className="user-info-container default-color add-shadow">
             <img className="profile-img" src="https://picsum.photos/200" alt="Profile image" width={100} height={100}/>
 
@@ -32,10 +56,13 @@ function UserInfo({username, rating, mode}){
                     <p className="rating">({rating})</p>
                 </div>
 
-                <img src={LogoutImage} alt="" className="logout" width={20} height={20}/>
+                <img src={LogoutImage} alt="" className="logout" width={20} height={20} onClick={() => {
+                    logoutPlayer()
+                    setIsLoadingVisible(false)
+                }}/>
             </div>
         </div>
-
+        </div>
     )
 
 }

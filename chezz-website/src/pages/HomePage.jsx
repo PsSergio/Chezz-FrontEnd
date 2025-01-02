@@ -11,15 +11,16 @@ export default function HomePage(){
     // const [session, setSession] = useState({sessionId}) 
     const location = useLocation()
 
-    // eslint-disable-next-line no-unused-vars
+     
     const { username, rating, sessionId} = location.state;
 
     return (
         
         <section className="container-bkg">
+            
             <div className="container-home-phone-response phone-mode">
                 <div className="userInfo">
-                    <UserInfo username={username} rating={rating} mode={"Cellphone"}/>
+                    <UserInfo username={username} rating={rating} mode={"Cellphone"} sessionId={sessionId}/>
                 </div>
                 <div className='board-container w-screen'>
                     <div className="board">
@@ -36,7 +37,7 @@ export default function HomePage(){
                 <div className="left-side-home ">
                     <Logo _width={200}/>
 
-                    <UserInfo username={username} rating={rating} mode={"Desktop"}/>
+                    <UserInfo username={username} rating={rating} mode={"Desktop"} sessionId={sessionId}/>
 
                     <div className='buttons-container default-color add-shadow mb-4 mt-6'>
 
