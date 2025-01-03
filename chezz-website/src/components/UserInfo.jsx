@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import LogoutImage from '../assets/logout.png'
 import { useNavigate } from 'react-router-dom'
+import Loading from './Loading'
 
 function UserInfo({username, rating, mode, sessionId}){
     const navigate = useNavigate()
@@ -46,7 +47,7 @@ function UserInfo({username, rating, mode, sessionId}){
 
     return (
         <div>
-        
+        <Loading isVisible={isLoadingVisible}/>
         <div className="user-info-container default-color add-shadow">
             <img className="profile-img" src="https://picsum.photos/200" alt="Profile image" width={100} height={100}/>
 

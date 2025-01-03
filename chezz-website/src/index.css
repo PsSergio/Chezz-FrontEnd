@@ -193,6 +193,18 @@
         top: 0;
     }
     
+    .code-input {
+        background-color: transparent;
+        border-bottom: 2px solid white;
+        font-size: 3em;
+        width: 1em;
+        margin: .1em;
+        text-align: center;
+        color: white;
+        font-weight: 900;
+        cursor: pointer;
+    }
+    
     @media (max-width:768px) {
         .logo-container {
             margin-top: 5em;

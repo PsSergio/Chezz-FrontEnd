@@ -11,7 +11,7 @@ export default function Loading({isVisible}){
         }
       };
     return (
-        <div className="w-screen h-screen loading-container flex justify-center items-center" style={{display: isVisible ? 'block' : 'none'}}>
+        <div className="w-screen h-screen loading-container flex justify-center items-center" style={{display: isVisible ? 'flex' : 'none'}}>
                 <Lottie
                     options={defaultOptions}
                     isClickToPauseDisabled={true}

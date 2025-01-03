@@ -27,7 +27,8 @@ export default function SinginForm(){
     async function singinPlayer(){
         setIsLoadingVisible(true)
         resetErrors()
-        if(isSending) return
+
+        if(isSending || email == "" || password == "") return
 
         setIsSending(true)
         fetch(`http://10.0.0.181:8080/player/login/${email}/${password}`,
@@ -61,28 +62,33 @@ export default function SinginForm(){
     }
 
     return(
-    <div>
+    <div className="flex justify-center items-center w-screen">
     <Loading isVisible={isLoadingVisible}/>
     <div className="sing-container flex flex-col justify-center items-center">
         <div className="container-form default-color add-shadow w-full">
             <div className="email-container input-container">
-                <input type="text" className="email-singup input-singin-and-singup placeholder-white" placeholder="email" onChange={changeEmail}></input>
+                <input type="text" value={email} className="email-singup input-singin-and-singup placeholder-white" placeholder="email" onChange={changeEmail}></input>
                 <p className="email-warning-error error-msg">{emailErrorMsg}</p>
             </div>
             <div className="password-container input-container">
-                <input type="password" className="senha-singup input-singin-and-singup placeholder-white" placeholder="senha" onChange={changePassword}></input>
+                <input type="password" value={password} className="senha-singup input-singin-and-singup placeholder-white" placeholder="senha" onChange={changePassword}></input>
 
             </div>
             <div className="toSingin-container mb-7 w-full flex justify-between">
-                <p className="toSingin text-sm font-semibold text-gray-300 underline italic hover:text-gray-50" onClick={gotoSingupPage}>já tenho uma conta</p>
-                <p className="toSingin text-sm font-semibold text-gray-300 underline italic hover:text-gray-50">esqueci minha senha</p>
+                <p className="toSingin text-sm font-semibold text-gray-300 underline italic hover:text-gray-50" onClick={gotoSingupPage}>Não tenho uma conta</p>
+                <p className="toSingin text-sm font-semibold text-gray-300 underline italic hover:text-gray-50" onClick={() => {
+                    navigate("/refine")
+                }}>esqueci minha senha</p>
             </div>
-            <p className="toSingin text-sm font-semibold text-red-400 underline italic hover:text-red-500 w-full">Esqueci minha senha</p>
+            <p className="toSingin text-sm font-semibold text-red-400 underline italic hover:text-red-500 w-full" onClick={() => {navigate("/refine")}}>Esqueci minha senha</p>
         </div>
         
         <SingButton text={"Entrar na conta"} bkgColor={"#EB6161"} borderColor={"#9B3535"} onclick_func={() => {
             singinPlayer()
             setIsLoadingVisible(false)
+            setIsSending(false)
+            setEmail("")
+            setPassword("")
         }}/>
             <div className="cellphone-singin-btn-container w-full mt-5">
                 <SingButton text={"Não tenho uma conta"} bkgColor={"#747474"} borderColor={"#414141"} onclick_func={gotoSingupPage}/>
