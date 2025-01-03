@@ -13,7 +13,8 @@ export default function RefinePasswordPage(){
     const [email, setEmail] = useState("")
     const [emailValidated, setEmailValidated] = useState("")
 
-    const [code, setCode] = useState("")
+    let codeToSend=""
+    let tempCode = ""
 
     const [emailErrorMsg, setEmailErrorMsg] = useState("")
     const [codeErrorMsg, setCodeErrorMsg] = useState("")
@@ -21,7 +22,7 @@ export default function RefinePasswordPage(){
     const [toCodeStep, setToCodeStep] = useState(false)
     const [toRefinePasswordStep, setToRefinePasswordStep] = useState(false)
 
-    const [isSending, setIsSending] = useState(false)
+    let isSending=false
     const [isLoading, setIsLoading] = useState(false)
 
     function changeEmail(event){
@@ -52,7 +53,7 @@ export default function RefinePasswordPage(){
 
     async function fetchCodeAPI(){
         return await fetch(
-            `http://10.0.0.181:8080/code/validate/${emailValidated}/${code}`,
+            `http://10.0.0.181:8080/code/validate/${emailValidated}/${codeToSend}`,
             {
                 method: 'GET',
                 headers: {'Content-Type': "application/json"},
@@ -75,16 +76,19 @@ export default function RefinePasswordPage(){
 
     async function sendCode(){
 
-        if(code.length!=6 || isSending || isNaN(code) ) return
+        codeToSend=tempCode
+        if(codeToSend.length != 6 || isSending || isNaN(codeToSend) ) return
+        setCodeErrorMsg("")
+
         setIsLoading(true)
-        setIsSending(true)
+        isSending=true
 
         await fetchCodeAPI()
 
         setIsLoading(false)
-        setIsSending(false)
-
-        setCodeErrorMsg("")
+        codeToSend=""
+        tempCode=""
+        isSending=false
 
     }
 
@@ -92,15 +96,16 @@ export default function RefinePasswordPage(){
         
         if(email == "" || isSending ) return
         setIsLoading(true)
-        setIsSending(true)
+        isSending=true
 
         await fetchSendEmailAPI()
 
         setIsLoading(false)
-        setIsSending(false)
+        isSending=false
 
         setEmail("")
         setEmailErrorMsg("")
+        setCodeErrorMsg("")
 
     }
 
@@ -110,6 +115,29 @@ export default function RefinePasswordPage(){
         else if(!toCodeStep) return window.innerWidth
         else if(toRefinePasswordStep) return -window.innerWidth
         else return 0
+    }
+
+    function changeCode(){
+        tempCode = ""
+        for(let i = 0; i < inputs.length; i++){
+            tempCode+=inputs[i].current.value
+        }
+        console.log("changeCode: " + tempCode)
+    }
+
+    function codeAutoFocus(event){
+        if(isNaN(event.target.value)) {event.target.value = ""; return}
+        changeCode()
+
+        for(let i = 0; i < inputs.length; i++){
+
+            if(event.target == inputs[i].current){
+                if(event.target.value != "" && i != inputs.length-1) {inputs[i+1].current.focus(); return;}
+                else if (i == 0) return
+                
+                inputs[i-1].current.focus()
+            }
+        }
     }
 
     return (
@@ -152,25 +180,25 @@ export default function RefinePasswordPage(){
                     </div>
                     <div className="flex flex-col items-center">
                         <div className="flex justify-center items-center">
-                            <input ref={inputs[0]} type="text" className="code-input" placeholder="0" maxLength={1}></input>
-                            <input ref={inputs[1]} type="text" className="code-input" placeholder="0" maxLength={1}></input>
-                            <input ref={inputs[2]} type="text" className="code-input" placeholder="0" maxLength={1}></input>
-                            <input ref={inputs[3]} type="text" className="code-input" placeholder="0" maxLength={1}></input>
-                            <input ref={inputs[4]} type="text" className="code-input" placeholder="0" maxLength={1}></input>
-                            <input ref={inputs[5]} type="text" className="code-input" placeholder="0" maxLength={1}></input>
+                            <input ref={inputs[0]} type="text" className="code-input" placeholder="0" maxLength={1} onChange={codeAutoFocus}></input>
+                            <input ref={inputs[1]} type="text" className="code-input" placeholder="0" maxLength={1} onChange={codeAutoFocus}></input>
+                            <input ref={inputs[2]} type="text" className="code-input" placeholder="0" maxLength={1} onChange={codeAutoFocus}></input>
+                            <input ref={inputs[3]} type="text" className="code-input" placeholder="0" maxLength={1} onChange={codeAutoFocus}></input>
+                            <input ref={inputs[4]} type="text" className="code-input" placeholder="0" maxLength={1} onChange={codeAutoFocus}></input>
+                            <input ref={inputs[5]} type="text" className="code-input" placeholder="0" maxLength={1} onChange={codeAutoFocus}></input>
                         </div>
                         <p className="code-warning-error font-bold" style={{color: "#EB6161"}}>{codeErrorMsg}</p>
                     </div>
 
                     <div className="w-64">
                         <SingButton text={"Mandar código"} bkgColor={"#EB6161"} borderColor={"#9B3535"} onclick_func={() =>{
-                            let tempCode = ""
-                            for(let i = 0; i < inputs.length; i++){
-                                tempCode+=inputs[i].current.value
-                            }
-                            setCode(tempCode)
-                            console.log(code)
+
                             sendCode()
+                            console.log("tempcode: "+ tempCode)
+                            console.log("code: " + codeToSend)
+                            for(let i = 0; i < inputs.length; i++){
+                                inputs[i].current.value=""
+                            }
                         }}/>
                     </div>
                 </motion.div>
@@ -189,8 +217,7 @@ export default function RefinePasswordPage(){
                     </div>
                     <div className="w-64">
                         <SingButton text={"Mandar código"} bkgColor={"#EB6161"} borderColor={"#9B3535"} onclick_func={() => {
-                            sendEmail()
- 
+                            // sendEmail()
                         }}/>
                     </div>
                 </motion.div>
