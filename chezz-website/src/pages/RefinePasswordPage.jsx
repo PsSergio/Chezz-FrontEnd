@@ -111,10 +111,12 @@ export default function RefinePasswordPage(){
 
     function animation() {
         // toCodeStep ? 0 : window.innerWidth
-        if(toCodeStep) return 0
+        console.log(toRefinePasswordStep)
+        console.log(toCodeStep)
+        if(toRefinePasswordStep) return -window.innerWidth
+        else if(toCodeStep) return 0
         else if(!toCodeStep) return window.innerWidth
-        else if(toRefinePasswordStep) return -window.innerWidth
-        else return 0
+        else if(!toRefinePasswordStep) return 0
     }
 
     function changeCode(){
@@ -122,7 +124,6 @@ export default function RefinePasswordPage(){
         for(let i = 0; i < inputs.length; i++){
             tempCode+=inputs[i].current.value
         }
-        console.log("changeCode: " + tempCode)
     }
 
     function codeAutoFocus(event){
@@ -145,8 +146,8 @@ export default function RefinePasswordPage(){
         <Loading isVisible={isLoading}/>
         <div className="singup-container w-screen flex flex-col justify-center items-center mt-2">
             <BackButton onClick={() =>{
-                if(toCodeStep) setToCodeStep(!toCodeStep)
-                else if(toRefinePasswordStep) setToRefinePasswordStep(!toRefinePasswordStep)
+                if(toRefinePasswordStep) setToRefinePasswordStep(!toRefinePasswordStep)
+                else if(toCodeStep) setToCodeStep(!toCodeStep)
                 else navigate("/singin")
             }}/>
 
@@ -194,8 +195,6 @@ export default function RefinePasswordPage(){
                         <SingButton text={"Mandar código"} bkgColor={"#EB6161"} borderColor={"#9B3535"} onclick_func={() =>{
 
                             sendCode()
-                            console.log("tempcode: "+ tempCode)
-                            console.log("code: " + codeToSend)
                             for(let i = 0; i < inputs.length; i++){
                                 inputs[i].current.value=""
                             }
