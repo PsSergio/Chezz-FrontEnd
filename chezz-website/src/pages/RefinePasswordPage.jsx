@@ -10,14 +10,17 @@ export default function RefinePasswordPage(){
 
     const inputs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef()]
 
+    const passwordInputs = [useRef(), useRef()]
+
     const [email, setEmail] = useState("")
     const [emailValidated, setEmailValidated] = useState("")
 
     let codeToSend=""
-    let tempCode = ""
+    const [codeToRefine, setCodeToRefine] = useState("")
 
     const [emailErrorMsg, setEmailErrorMsg] = useState("")
     const [codeErrorMsg, setCodeErrorMsg] = useState("")
+    const [passwordErrorMsg, setPasswordErrorMsg] = useState("")
 
     const [toCodeStep, setToCodeStep] = useState(false)
     const [toRefinePasswordStep, setToRefinePasswordStep] = useState(false)
@@ -30,7 +33,7 @@ export default function RefinePasswordPage(){
     }
 
     async function fetchSendEmailAPI(){
-        return  await fetch(
+        return await fetch(
             `http://10.0.0.181:8080/code/sendEmail/${email}`,
             {
                 method: "POST",
@@ -51,47 +54,6 @@ export default function RefinePasswordPage(){
         })
     }
 
-    async function fetchCodeAPI(){
-        return await fetch(
-            `http://10.0.0.181:8080/code/validate/${emailValidated}/${codeToSend}`,
-            {
-                method: 'GET',
-                headers: {'Content-Type': "application/json"},
-            }
-            
-        ).then(response => {
-            if(response.ok){
-                
-                setToRefinePasswordStep(true)
-                return
-            }
-
-            response.json().then((value) =>{
-
-                setCodeErrorMsg(value.message)
-
-            })
-        })
-    }
-
-    async function sendCode(){
-
-        codeToSend=tempCode
-        if(codeToSend.length != 6 || isSending || isNaN(codeToSend) ) return
-        setCodeErrorMsg("")
-
-        setIsLoading(true)
-        isSending=true
-
-        await fetchCodeAPI()
-
-        setIsLoading(false)
-        codeToSend=""
-        tempCode=""
-        isSending=false
-
-    }
-
     async function sendEmail(){
         
         if(email == "" || isSending ) return
@@ -109,10 +71,50 @@ export default function RefinePasswordPage(){
 
     }
 
+    async function fetchCodeAPI(){
+        return await fetch(
+            `http://10.0.0.181:8080/code/validate/${emailValidated}/${codeToSend}`,
+            {
+                method: 'GET',
+                headers: {'Content-Type': "application/json"},
+            }
+            
+        ).then(response => {
+            if(response.ok){
+                setToRefinePasswordStep(true)
+                setCodeToRefine(codeToSend)
+                console.log(codeToSend)
+                return
+            }
+
+            response.json().then((value) =>{
+
+                setCodeErrorMsg(value.message)
+                codeToSend=""
+
+            })
+        })
+    }
+
+    async function sendCode(){
+        if(codeToSend.length != 6 || isSending || isNaN(codeToSend) ) return
+        setCodeErrorMsg("")
+
+        setIsLoading(true)
+        isSending=true
+
+        await fetchCodeAPI()
+        console.log(codeToRefine)
+        console.log(codeToSend)
+        setIsLoading(false)
+        isSending=false
+
+
+    }
+
+    // code methods ->
+
     function animation() {
-        // toCodeStep ? 0 : window.innerWidth
-        console.log(toRefinePasswordStep)
-        console.log(toCodeStep)
         if(toRefinePasswordStep) return -window.innerWidth
         else if(toCodeStep) return 0
         else if(!toCodeStep) return window.innerWidth
@@ -120,9 +122,9 @@ export default function RefinePasswordPage(){
     }
 
     function changeCode(){
-        tempCode = ""
+        codeToSend = ""
         for(let i = 0; i < inputs.length; i++){
-            tempCode+=inputs[i].current.value
+            codeToSend+=inputs[i].current.value
         }
     }
 
@@ -140,6 +142,48 @@ export default function RefinePasswordPage(){
             }
         }
     }
+
+    function arePasswordsEquals(){
+        const password = passwordInputs[0].current.value
+        const password2 = passwordInputs[1].current.value
+
+        return password == password2
+    }
+
+    async function fetchPasswordAPI(){
+        const password = passwordInputs[0].current.value
+        const email = emailValidated
+        const player = {email, password}
+        
+        return await fetch(
+            `http://10.0.0.181:8080/player/refine/${codeToRefine}`,
+            {
+                method: "PUT",
+                headers: {'Content-Type': "application/json"},
+                body: JSON.stringify(player)
+            }
+        ).then(response => {
+            if(response.ok){
+                navigate('/singin')
+                return
+            }
+
+        })
+    }
+
+    async function refinePassword(){
+
+        if(passwordInputs[0].current.value == "" || passwordInputs[1].current.value == "") return
+        
+        setPasswordErrorMsg("")
+        if(!arePasswordsEquals()) {
+            setPasswordErrorMsg("As duas senhas devem ser iguais!")
+            return
+        }
+
+        await fetchPasswordAPI()
+        
+    } 
 
     return (
         <div>        
@@ -193,11 +237,12 @@ export default function RefinePasswordPage(){
 
                     <div className="w-64">
                         <SingButton text={"Mandar código"} bkgColor={"#EB6161"} borderColor={"#9B3535"} onclick_func={() =>{
-
                             sendCode()
                             for(let i = 0; i < inputs.length; i++){
                                 inputs[i].current.value=""
                             }
+                            console.log(codeToRefine)
+
                         }}/>
                     </div>
                 </motion.div>
@@ -207,16 +252,23 @@ export default function RefinePasswordPage(){
                 transition={{duration: 1}}
                 initial={{x: window.innerWidth}}>
                     <div className="flex flex-col items-center">
-                    <h1 className="text-white font-bold text-2xl">Esqueceu a senha senha?</h1>
-                    <p className="text-gray-300 font-bold text-xl w-3/4 text-center">Coloque o seu email para enviarmos um código de confirmação</p>
+                    <h1 className="text-white font-bold text-2xl">Redefina sua nova senha!</h1>
                     </div>
-                    <div className="email-container input-container">
-                        <input type="text" value={email} className="email-singup input-singin-and-singup placeholder-white" placeholder="email" onChange={changeEmail}></input>
-                        <p className="error-msg text-red-500">{emailErrorMsg}</p>
+                    <div className="inputs-container">
+                        <div className="password-container input-container mb-12">
+                            <input type="password" ref={passwordInputs[0]} className="email-singup input-singin-and-singup placeholder-white" placeholder="nova senha"></input>
+                        </div>
+                        <div className="password-container input-container mt-12">
+                            <input type="password" ref={passwordInputs[1]} className="email-singup input-singin-and-singup placeholder-white mt-5" placeholder="confirmar senha"></input>
+                            <p className="code-warning-error font-bold" style={{color: "#EB6161"}}>{passwordErrorMsg}</p>
+                        </div>
                     </div>
+                    
                     <div className="w-64">
-                        <SingButton text={"Mandar código"} bkgColor={"#EB6161"} borderColor={"#9B3535"} onclick_func={() => {
-                            // sendEmail()
+                        <SingButton text={"Confirmar"} bkgColor={"#EB6161"} borderColor={"#9B3535"} onclick_func={() => {
+                            console.log(codeToRefine)
+                            
+                            refinePassword()
                         }}/>
                     </div>
                 </motion.div>
