@@ -115,9 +115,9 @@ export default function RefinePasswordPage(){
     // code methods ->
 
     function animation() {
-        if(toRefinePasswordStep) return -window.innerWidth
+        if(toRefinePasswordStep) return -window.screen.width
         else if(toCodeStep) return 0
-        else if(!toCodeStep) return window.innerWidth
+        else if(!toCodeStep) return window.screen.width
         else if(!toRefinePasswordStep) return 0
     }
 
@@ -196,7 +196,7 @@ export default function RefinePasswordPage(){
             }}/>
 
             <div className="h-screen flex justify-center items-center" >
-                <motion.div className="send-email-step flex flex-col justify-evenly items-center h-full absolute" style={{visibility:"visible"}} animate={{x: toCodeStep ? -window.innerWidth : 0}} transition={{duration: 1}}>
+                <motion.div className="send-email-step flex flex-col justify-evenly items-center h-full absolute" style={{visibility:"visible"}} animate={{x: toCodeStep ? -window.screen.width : 0}} transition={{duration: 1}}>
                     <div className="flex flex-col items-center">
                     <h1 className="refine-title text-white font-bold text-2xl">Esqueceu a senha senha?</h1>
                     <p className="refine-subtitle text-gray-300 font-bold text-xl w-3/4 text-center">Coloque o seu email para enviarmos um código de confirmação</p>
@@ -218,7 +218,7 @@ export default function RefinePasswordPage(){
                     x: animation()
                     }}
                  transition={{duration: 1}}
-                 initial={{x: window.innerWidth}}>
+                 initial={{x: window.screen.width}}>
                     <div className="flex flex-col items-center">
                         <h1 className="refine-title text-white font-bold text-2xl">Enviamos um código para o email</h1>
                         <p className="refine-subtitle font-bold text-lg w-3/4 text-center" style={{color: "#EB6161"}}>{emailValidated}</p>
@@ -248,9 +248,9 @@ export default function RefinePasswordPage(){
                 </motion.div>
 
                 <motion.div className="refine-password-step flex flex-col justify-evenly items-center h-full absolute" style={{visibility:"visible"}}
-                animate={{x: toRefinePasswordStep ? 0 : window.innerWidth}} 
+                animate={{x: toRefinePasswordStep ? 0 : window.screen.width}} 
                 transition={{duration: 1}}
-                initial={{x: window.innerWidth}}>
+                initial={{x: window.screen.width}}>
                     <div className="flex flex-col items-center">
                     <h1 className="refine-title text-white font-bold text-2xl">Redefina sua nova senha!</h1>
                     </div>
