@@ -1,4 +1,3 @@
-import Pieces from "./Pieces"
 import Square from "./Square"
 
 export default function Board(){
@@ -19,13 +18,13 @@ export default function Board(){
             
             for(let j = 0; j < 8; j++){
                 if(isRed){
-                    squars.push(<Square isRed={isRed} letter={lettersHouse[j]} number={i+1}/>)
+                    squars.push(<Square isRed={!isRed} letter={lettersHouse[j]} number={i+1}/>)
                     isRed=false
                     continue;
                 }
 
                 isRed=true
-                squars.push(<Square isRed={!isRed} letter={lettersHouse[j]} number={i+1}/>)
+                squars.push(<Square isRed={isRed} letter={lettersHouse[j]} number={i+1}/>)
                 
             }
             

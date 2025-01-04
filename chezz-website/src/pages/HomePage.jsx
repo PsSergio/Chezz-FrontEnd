@@ -1,7 +1,7 @@
 // import { Router, Routes, Route} from 'react-router-dom';
 import Board from '../components/Board';
+import DefaultPieces from '../components/DefaultPieces';
 import Logo from '../components/Logo';
-import Pieces from '../components/Pieces';
 import PlayButton from '../components/PlayButton';
 import UserInfo from '../components/UserInfo';
 import { useLocation } from 'react-router-dom';
@@ -51,7 +51,7 @@ export default function HomePage(){
                 <div className='board-container xl:ml-10 md:ml-5'>
                     <div className="board">
                         <Board/>
-                        <Pieces side="white" piece="pawn" house="e2"/>
+                        <DefaultPieces/>
 
                     </div>
                 </div>

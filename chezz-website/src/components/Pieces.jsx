@@ -1,18 +1,22 @@
 import { useEffect } from 'react'
 // import ReactDOM from 'react-dom'
-import a from "../assets/pieces/white-knight.png"
+
 
 export default function Pieces({side, piece, house}){
-    // const imageSrc = `../assets/pieces/${side}-${piece}.png`
-    const imageSrc = `../assets/pieces/white-knight.png`
+
+    const imageSrc = `/pieces/${side}-${piece}.png`
+    // const imageSrc = `/pieces/white-knight.png`
 
     useEffect(() => {
-        const otherSquares = document.getElementsByClassName('piece-house')
-        for(let i = 0; i < otherSquares.length; i++){
-            otherSquares.item(i).textContent = ''
-        }
+        // const otherSquares = document.getElementsByClassName('piece-house')
+        // for(let i = 0; i < otherSquares.length; i++){
+        //     otherSquares.item(i).textContent = ''
+        // }
 
         const squares = document.getElementsByClassName(`piece-house ${house}`)
+
+        squares.item(0).textContent = ''
+        squares.item(1).textContent = ''
         
         const pieceM = document.createElement('img')
         pieceM.src=imageSrc
