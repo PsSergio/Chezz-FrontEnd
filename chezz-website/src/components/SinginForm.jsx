@@ -83,16 +83,18 @@ export default function SinginForm(){
             <p className="toSingin text-sm font-semibold text-red-400 underline italic hover:text-red-500 w-full" onClick={() => {navigate("/refine")}}>Esqueci minha senha</p>
         </div>
         
-        <SingButton text={"Entrar na conta"} bkgColor={"#EB6161"} borderColor={"#9B3535"} onclick_func={() => {
-            singinPlayer()
-            setIsLoadingVisible(false)
-            setIsSending(false)
-            setEmail("")
-            setPassword("")
-        }}/>
-            <div className="cellphone-singin-btn-container w-full mt-5">
-                <SingButton text={"Não tenho uma conta"} bkgColor={"#747474"} borderColor={"#414141"} onclick_func={gotoSingupPage}/>
-            </div>
+        <div className="w-full">
+            <SingButton text={"Entrar na conta"} bkgColor={"#EB6161"} borderColor={"#9B3535"} onclick_func={() => {
+                singinPlayer()
+                setIsLoadingVisible(false)
+                setIsSending(false)
+                setEmail("")
+                setPassword("")
+            }}/>
+                <div className="cellphone-singin-btn-container w-full mt-5">
+                    <SingButton text={"Não tenho uma conta"} bkgColor={"#747474"} borderColor={"#414141"} onclick_func={gotoSingupPage}/>
+                </div>
+        </div>
     </div>
     </div>
     )

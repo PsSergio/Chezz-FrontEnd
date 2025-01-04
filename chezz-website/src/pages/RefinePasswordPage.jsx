@@ -198,8 +198,8 @@ export default function RefinePasswordPage(){
             <div className="h-screen flex justify-center items-center" >
                 <motion.div className="send-email-step flex flex-col justify-evenly items-center h-full absolute" style={{visibility:"visible"}} animate={{x: toCodeStep ? -window.innerWidth : 0}} transition={{duration: 1}}>
                     <div className="flex flex-col items-center">
-                    <h1 className="text-white font-bold text-2xl">Esqueceu a senha senha?</h1>
-                    <p className="text-gray-300 font-bold text-xl w-3/4 text-center">Coloque o seu email para enviarmos um código de confirmação</p>
+                    <h1 className="refine-title text-white font-bold text-2xl">Esqueceu a senha senha?</h1>
+                    <p className="refine-subtitle text-gray-300 font-bold text-xl w-3/4 text-center">Coloque o seu email para enviarmos um código de confirmação</p>
                     </div>
                     <div className="email-container input-container">
                         <input type="text" value={email} className="email-singup input-singin-and-singup placeholder-white" placeholder="email" onChange={changeEmail}></input>
@@ -220,8 +220,8 @@ export default function RefinePasswordPage(){
                  transition={{duration: 1}}
                  initial={{x: window.innerWidth}}>
                     <div className="flex flex-col items-center">
-                        <h1 className="text-white font-bold text-2xl">Enviamos um código para o email</h1>
-                        <p className="font-bold text-lg w-3/4 text-center" style={{color: "#EB6161"}}>{emailValidated}</p>
+                        <h1 className="refine-title text-white font-bold text-2xl">Enviamos um código para o email</h1>
+                        <p className="refine-subtitle font-bold text-lg w-3/4 text-center" style={{color: "#EB6161"}}>{emailValidated}</p>
                     </div>
                     <div className="flex flex-col items-center">
                         <div className="flex justify-center items-center">
@@ -252,7 +252,7 @@ export default function RefinePasswordPage(){
                 transition={{duration: 1}}
                 initial={{x: window.innerWidth}}>
                     <div className="flex flex-col items-center">
-                    <h1 className="text-white font-bold text-2xl">Redefina sua nova senha!</h1>
+                    <h1 className="refine-title text-white font-bold text-2xl">Redefina sua nova senha!</h1>
                     </div>
                     <div className="inputs-container">
                         <div className="password-container input-container mb-12">

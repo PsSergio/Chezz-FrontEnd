@@ -18,11 +18,11 @@ export default function HomePage(){
         
         <section className="container-bkg">
             
-            <div className="container-home-phone-response phone-mode">
+            <div className="container-home-phone-response phone-mode flex flex-col items-center">
                 <div className="userInfo">
                     <UserInfo username={username} rating={rating} mode={"Cellphone"} sessionId={sessionId}/>
                 </div>
-                <div className='board-container w-screen'>
+                <div className='board-container w-screen flex flex-col justify-center items-center'>
                     <div className="board">
                         <Board/>
 

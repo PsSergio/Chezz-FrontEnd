@@ -205,46 +205,13 @@
         cursor: pointer;
     }
     
-    @media (max-width:768px) {
-        .logo-container {
-            margin-top: 5em;
+    @media(max-width:400px) {
+        .code-input {
+            font-size: 2.2em
         }
-        .sub-text-singing-singup {
-            font-size: 1.2em;
-        }
-        .sing-container,
-        .input-container {
-            width: 75vw;
-        }
-        .container-form {
-            background-color: transparent;
-            border: 0;
-        }
-        .toSingin-container {
-            display: none;
-        }
-        body {
-            overflow-y: scroll;
-        }
-        .logout {
-            width: 20px;
-            height: 20px;
-        }
-        .user-info {
-            width: 75%;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-        .buttons-container {
-            width: 100vw;
-        }
-        .user-info-container-cellphone {
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-        }
-        .desktop-mode {
-            display: none;
-        }
+    }
+    
+    @media (max-width: 600px) {
         .board {
             margin-top: 2em;
             margin-bottom: 2em;
@@ -256,21 +223,28 @@
             height: calc(100vw/8);
         }
         .profile-img {
-            width: 50px;
-            height: 50px;
+            width: 50px !important;
+            height: 50px !important;
+        }
+        .user-info div p {
+            font-size: 1em !important;
+        }
+    }
+    
+    @media (max-width:768px) {
+        .refine-title {
+            font-size: 1em;
+        }
+        .refine-subtitle {
+            font-size: 1em;
+        }
+        .desktop-mode {
+            display: none;
         }
     }
     
     @media (min-width:769px) {
-        .container-form p {
-            display: none;
-        }
-        .container-form div p {
-            display: block;
-        }
-        .cellphone-singin-btn-container {
-            display: none;
-        }
+        /* 
         .phone-mode {
             display: none;
         }
@@ -297,10 +271,74 @@
         }
         .logo-img {
             width: 10em !important;
+        } */
+    }
+    
+    @media (max-width: 1024px) {
+        .container-form div p {
+            color: #EB6161
+        }
+        .container-form div {
+            margin-bottom: 6em;
+        }
+        .sing-container {
+            height: 75vh;
+            justify-content: space-around;
+        }
+        .logo-container {
+            margin-top: 5em;
+        }
+        .sub-text-singing-singup {
+            font-size: 1.2em;
+        }
+        .sing-container,
+        .input-container {
+            width: 75vw;
+        }
+        .container-form {
+            background-color: transparent;
+            border: 0;
+        }
+        .toSingin-container {
+            display: none;
+        }
+        .desktop-mode {
+            display: none;
+        }
+        body {
+            overflow-y: scroll;
+        }
+        .logout {
+            width: 30px;
+            height: 30px;
+        }
+        .user-info {
+            width: 75%;
+            flex-direction: row !important;
+        }
+        .user-info div p {
+            font-size: 1.5em
+        }
+        .profile-img {
+            width: 6.5em;
+        }
+        .container-form p,
+        .cellphone-singin-btn-container {
+            display: block;
+        }
+        .container-form div p {
+            display: block;
         }
     }
     
     @media (min-width:1024px) {
+        .container-form p,
+        .cellphone-singin-btn-container {
+            display: none;
+        }
+        .container-home-phone-response {
+            display: none;
+        }
         .board {
             width: 600px;
             height: 600px;
