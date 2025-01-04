@@ -1,10 +1,12 @@
 // import { Router, Routes, Route} from 'react-router-dom';
 import Board from '../components/Board';
 import Logo from '../components/Logo';
+import Pieces from '../components/Pieces';
 import PlayButton from '../components/PlayButton';
 import UserInfo from '../components/UserInfo';
 import { useLocation } from 'react-router-dom';
 // import { useState } from 'react';
+
 
  
 export default function HomePage(){
@@ -49,6 +51,7 @@ export default function HomePage(){
                 <div className='board-container xl:ml-10 md:ml-5'>
                     <div className="board">
                         <Board/>
+                        <Pieces side="white" piece="pawn" house="e2"/>
 
                     </div>
                 </div>
