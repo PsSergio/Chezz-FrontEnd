@@ -2,7 +2,6 @@ import Square from "./Square"
 
 export default function Board(){
 
-
     let squars = []
     let isRed = true
     const lettersHouse = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].reverse()
