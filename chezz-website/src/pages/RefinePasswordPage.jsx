@@ -4,6 +4,7 @@ import { useState, useRef} from "react";
 import {motion} from "framer-motion"
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
+import getPublicIP from "../global";
 
 export default function RefinePasswordPage(){
     const navigate = useNavigate()
@@ -34,7 +35,7 @@ export default function RefinePasswordPage(){
 
     async function fetchSendEmailAPI(){
         return await fetch(
-            `http://10.0.0.181:8080/code/sendEmail/${email}`,
+            `http://${getPublicIP}/code/sendEmail/${email}`,
             {
                 method: "POST",
                 headers: {'Content-Type': "application/json"},
@@ -73,7 +74,7 @@ export default function RefinePasswordPage(){
 
     async function fetchCodeAPI(){
         return await fetch(
-            `http://10.0.0.181:8080/code/validate/${emailValidated}/${codeToSend}`,
+            `http://${getPublicIP()}/code/validate/${emailValidated}/${codeToSend}`,
             {
                 method: 'GET',
                 headers: {'Content-Type': "application/json"},
@@ -156,7 +157,7 @@ export default function RefinePasswordPage(){
         const player = {email, password}
         
         return await fetch(
-            `http://10.0.0.181:8080/player/refine/${codeToRefine}`,
+            `http://${getPublicIP()}/player/refine/${codeToRefine}`,
             {
                 method: "PUT",
                 headers: {'Content-Type': "application/json"},

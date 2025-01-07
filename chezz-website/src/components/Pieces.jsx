@@ -7,6 +7,12 @@ export default function Pieces({side, piece, house, id}){
     const handleDragStart = (event) =>{
         event.dataTransfer.setData('id', `id-${side}-${piece}-${id}`)
         event.dataTransfer.setData('side', side)
+        event.dataTransfer.setData('piece', piece)
+
+        const letter = event.target.parentElement.className[event.target.parentElement.className.length-2]
+        const number = event.target.parentElement.className[event.target.parentElement.className.length-1]
+
+        event.dataTransfer.setData('house', letter+number) // house before move
     }
 
     const imageSrc = `/pieces/${side}-${piece}.png`

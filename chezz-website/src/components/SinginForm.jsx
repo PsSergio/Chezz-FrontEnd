@@ -2,6 +2,7 @@ import { useState } from "react"
 import SingButton from "./SingButton"
 import { useNavigate } from "react-router-dom"
 import Loading from "./Loading"
+import getPublicIP from "../global"
 
 export default function SinginForm(){
     
@@ -31,7 +32,7 @@ export default function SinginForm(){
         if(isSending || email == "" || password == "") return
 
         setIsSending(true)
-        fetch(`http://10.0.0.181:8080/player/login/${email}/${password}`,
+        fetch(`http://${getPublicIP()}/player/login/${email}/${password}`,
             {
                 method:"GET",
                 headers: {'Content-Type': "application/json"},

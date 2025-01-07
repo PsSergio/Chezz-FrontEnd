@@ -1,8 +1,32 @@
  export default function Square({isRed, letter, number}) {
 
-    function isPawnMoveValid(event){
+    const lettersArray = ["a", "b", "c", "d", "e", "f", "g", "h"]
+
+    function isPawnMoveValid(event, piece, side, lastHouse, actHouse){
+
+        if(piece != "pawn") return true
 
 
+        const x = lettersArray.indexOf(lastHouse[0]) - lettersArray.indexOf(actHouse[0])
+        const y = lastHouse[1] - actHouse[1] 
+
+        if(event.target.nodeName != "IMG" && lastHouse[0] != actHouse[0]) return false
+
+        if(event.target.nodeName == "IMG" && 
+            ( Math.abs(x) != Math.abs(y) || Math.abs(x) != 1)) return false
+
+
+        if(side == "white") {
+
+            if( (lastHouse[1] != 2 && actHouse[1] > Number(lastHouse[1])+1 )
+                || (lastHouse[1] == 2 && actHouse[1] > Number(lastHouse[1])+2)
+            ) return false
+
+            if(lastHouse[1] > actHouse[1]) return false
+
+        }
+
+        return true
 
     }
 
@@ -12,6 +36,7 @@
         
         const house = event.target.parentElement
         const pieces = document.getElementsByClassName(event.target.className)
+
         pieces.item(0).remove()
         pieces.item(0).remove()
 
@@ -20,9 +45,22 @@
     }
 
     function isHouseValid(event){
-        console.log()
-        // if(event.target.nodeName == "IMG") return false
 
+        if(event.target.nodeName == "IMG"){
+            const letter = event.target.parentElement.className[event.target.parentElement.className.length-2]
+            const number = event.target.parentElement.className[event.target.parentElement.className.length-1]
+        }else {
+            const letter = event.target.className[event.target.className.length-2]
+            const number = event.target.className[event.target.className.length-1]    
+        }
+        const side = event.dataTransfer.getData('side')
+        const piece = event.dataTransfer.getData('piece')
+
+        const lastHouse = event.dataTransfer.getData('house')
+        const actHouse = letter+number
+        console.log(isPawnMoveValid(event, piece, side, lastHouse, actHouse))
+        if(!isPawnMoveValid(event, piece, side, lastHouse, actHouse)) return false
+        
         return true
     }
 

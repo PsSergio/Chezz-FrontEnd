@@ -2,6 +2,7 @@ import { useState } from 'react'
 import LogoutImage from '../assets/logout.png'
 import { useNavigate } from 'react-router-dom'
 import Loading from './Loading'
+import getPublicIP from '../global'
 
 function UserInfo({username, rating, mode, sessionId}){
     const navigate = useNavigate()
@@ -9,7 +10,7 @@ function UserInfo({username, rating, mode, sessionId}){
 
     async function logoutPlayer(){
         setIsLoadingVisible(true)
-        fetch(`http://10.0.0.181:8080/player/logout/${sessionId}`, {
+        fetch(`http://${getPublicIP()}/player/logout/${sessionId}`, {
             method: 'DELETE',
             headers: {'Content-Type': "application/json"},
         }).then(response => {

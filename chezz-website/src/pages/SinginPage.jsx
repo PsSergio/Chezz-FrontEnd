@@ -8,7 +8,7 @@ export default function SingingPage(){
 
         <div className="singup-container w-screen flex flex-col justify-center items-center mt-2">
             <BackButton/>
-            <div className="logo-container flex flex-col justify-center items-center">
+            <div className="logo-container flex flex-col justify-center items-center mt-24">
                 <Logo _width={20}/>
                 <p className="sub-text-singing-singup mt-0">Entre na sua conta!</p>
             </div>

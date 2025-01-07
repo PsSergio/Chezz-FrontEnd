@@ -2,6 +2,7 @@ import { useState } from "react"
 import SingButton from "./SingButton"
 import {useNavigate} from 'react-router-dom'
 import Loading from "./Loading"
+import getPublicIP from "../global"
 
 export default function SingupForm(){
     const navigate = useNavigate()
@@ -47,7 +48,7 @@ export default function SingupForm(){
 
         setIsSending(true)
         fetch(
-            'http://10.0.0.181:8080/player/save',
+            `http://${getPublicIP()}/player/save`,
             {
             method:'POST',
             headers: {'Content-Type': "application/json"},
