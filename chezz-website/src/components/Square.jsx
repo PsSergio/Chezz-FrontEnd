@@ -24,9 +24,35 @@
 
             if(lastHouse[1] > actHouse[1]) return false
 
+        } else if(side == "black"){
+
+            if( (lastHouse[1] != 7 && actHouse[1] < Number(lastHouse[1])-1 )
+                || (lastHouse[1] == 7 && actHouse[1] < Number(lastHouse[1])-2)
+            ) return false
+
+            if(lastHouse[1] < actHouse[1]) return false
+
         }
 
         return true
+
+    }
+
+    function isKnightMoveValid(event, piece, side, lastHouse, actHouse){
+
+        if(piece != "knight") return true
+
+        const x = lettersArray.indexOf(lastHouse[0]) - lettersArray.indexOf(actHouse[0])
+        const y = lastHouse[1] - actHouse[1] 
+
+        const possibleMoves = [[2, -1], [2, 1], [-2, -1], [-2, 1],
+                                [1, 2], [1, -2], [-1, 2], [-1, -2]]
+
+        for(let i = 0; i < possibleMoves.length; i++){
+            if(possibleMoves[i][0] == Number(x) && possibleMoves[i][1] == Number(y)) return true
+        }
+
+        return false
 
     }
 
@@ -58,8 +84,9 @@
 
         const lastHouse = event.dataTransfer.getData('house')
         const actHouse = letter+number
-        console.log(isPawnMoveValid(event, piece, side, lastHouse, actHouse))
-        if(!isPawnMoveValid(event, piece, side, lastHouse, actHouse)) return false
+        
+        if(!isPawnMoveValid(event, piece, side, lastHouse, actHouse) ||
+        !isKnightMoveValid(event, piece, side, lastHouse, actHouse)) return false
         
         return true
     }

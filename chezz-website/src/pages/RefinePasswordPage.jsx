@@ -35,7 +35,7 @@ export default function RefinePasswordPage(){
 
     async function fetchSendEmailAPI(){
         return await fetch(
-            `http://${getPublicIP}/code/sendEmail/${email}`,
+            `http://${getPublicIP()}/code/sendEmail/${email}`,
             {
                 method: "POST",
                 headers: {'Content-Type': "application/json"},
