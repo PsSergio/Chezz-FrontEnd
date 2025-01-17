@@ -22,7 +22,6 @@ export function isPawnMoveValid(event, piece, side, lastHouse, actHouse) {
     )
       return false;
 
-    console.log(document.getElementsByClassName(actHouse[0]+Number(actHouse[1]-1))[0].hasChildNodes())
     if(lastHouse[1] == 2 && actHouse[1] == Number(lastHouse[1])+2 && document.getElementsByClassName(actHouse[0]+Number(actHouse[1]-1))[0].hasChildNodes()) return false
 
     if (lastHouse[1] > actHouse[1]) return false;
@@ -68,10 +67,41 @@ export function isBishopMoveValid(event, piece, side, lastHouse, actHouse) {
 
   if (Math.abs(x) != Math.abs(y)) return false;
 
-  console.log(x + " " + y)
+  return validateThereIsSomePieceInDiagonal(y, x, lastHouse, actHouse)
 
-  const xDir = x > 0 ? "left" : "right"
-  const yDir = y > 0 ? "down" : "up"
+}
+
+export function isQueenMoveValid(event, piece, side, lastHouse, actHouse){
+    if(piece != "queen") return true
+
+    const x = lettersArray.indexOf(lastHouse[0]) - lettersArray.indexOf(actHouse[0]);
+    const y = lastHouse[1] - actHouse[1];
+
+    if( Math.abs(x) == Math.abs(y) ) { // diagonal
+      return validateThereIsSomePieceInDiagonal(y, x, lastHouse, actHouse)
+    }
+
+    if ( x == 0 && y != 0 || y == 0 && x != 0){
+      return validateStraightMove(y, x, lastHouse, actHouse)
+    }
+
+}
+
+export function isRookMoveValid(event, piece, side, lastHouse, actHouse){
+  if(piece != "rook") return true
+
+  const x = lettersArray.indexOf(lastHouse[0]) - lettersArray.indexOf(actHouse[0]);
+  const y = lastHouse[1] - actHouse[1];
+
+  if ( x == 0 && y != 0 || y == 0 && x != 0){
+    return validateStraightMove(y, x, lastHouse, actHouse)
+  }
+
+  return false
+}
+
+function validateThereIsSomePieceInDiagonal(y, x, lastHouse, actHouse){
+  var indexX = lettersArray.indexOf(lastHouse[0])
 
   function setIndex(){
     if(x > 0) return indexX--
@@ -79,7 +109,6 @@ export function isBishopMoveValid(event, piece, side, lastHouse, actHouse) {
     return indexX++
   }
 
-  var indexX = lettersArray.indexOf(lastHouse[0])
   if( y > 0 ){ // to left
     for(let i = Number(lastHouse[1]); i > Number(actHouse[1]); i--){
       setIndex()
@@ -87,7 +116,8 @@ export function isBishopMoveValid(event, piece, side, lastHouse, actHouse) {
       if(indexX == lettersArray.indexOf(actHouse[0])) return true
       if(house.hasChildNodes()) return false
     }
-  }else{ // to right
+  }
+  else{ // to right
     for(let i = Number(lastHouse[1]); i < Number(actHouse[1]); i++){
       setIndex()
       const house = document.getElementsByClassName(lettersArray[indexX]+(i+1))[1]
@@ -96,7 +126,34 @@ export function isBishopMoveValid(event, piece, side, lastHouse, actHouse) {
     }
   }
 
-  return true;
+}
+
+function validateStraightMove(y, x, lastHouse, actHouse){
+
+  let indexX = lettersArray.indexOf(lastHouse[0])
+  let limitX = lettersArray.indexOf(actHouse[0])
+
+  if(y > 0){
+    console.log(indexX)
+    for(let i = Number(lastHouse[1]); i > Number(actHouse[1]); i--) {
+      if(document.getElementsByClassName(lettersArray[indexX]+(i-1))[1].hasChildNodes() && i-1 != actHouse[1]) return false
+    }
+  }else if(y < 0){
+    for(let i = Number(lastHouse[1]); i < Number(actHouse[1]); i++) {
+      if(document.getElementsByClassName(lettersArray[indexX]+(i+1))[1].hasChildNodes() && i+1 != actHouse[1]) return false
+    }
+  }else if(x > 0){
+    for(let i = indexX; i > limitX; i--) {
+      if(document.getElementsByClassName(lettersArray[i-1]+lastHouse[1])[1].hasChildNodes() && i-1 != lettersArray.indexOf(actHouse[0])) return false
+    }
+  }else{
+    for(let i = indexX; i < limitX; i++) {
+      if(document.getElementsByClassName(lettersArray[i+1]+lastHouse[1])[1].hasChildNodes() && i+1 != lettersArray.indexOf(actHouse[0])) return false
+    }
+  }
+
+  return true 
+
 }
 
 export function putPieceInHouse(piece, id) {

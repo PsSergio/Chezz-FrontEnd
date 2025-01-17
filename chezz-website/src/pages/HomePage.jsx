@@ -11,10 +11,14 @@ import { useLocation } from 'react-router-dom';
  
 export default function HomePage(){
     // const [session, setSession] = useState({sessionId}) 
-    const location = useLocation()
+    // const location = useLocation()
 
      
-    const { username, rating, sessionId} = location.state;
+    // const { username, rating, sessionId} = location.state;
+
+    const username = "PsCosta"
+    const rating = 1500
+    const sessionId = 1
 
     return (
         

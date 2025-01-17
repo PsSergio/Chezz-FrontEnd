@@ -25,7 +25,9 @@ export default function Square({ isRed, letter, number }) {
     if (
       !ChessScripts.isPawnMoveValid(event, piece, side, lastHouse, actHouse) ||
       !ChessScripts.isKnightMoveValid(event, piece, side, lastHouse, actHouse) ||
-      !ChessScripts.isBishopMoveValid(event, piece, side, lastHouse, actHouse)
+      !ChessScripts.isBishopMoveValid(event, piece, side, lastHouse, actHouse) ||
+      !ChessScripts.isQueenMoveValid(event, piece, side, lastHouse, actHouse) || 
+      !ChessScripts.isRookMoveValid(event, piece, side, lastHouse, actHouse)
     )
       return false;
 
